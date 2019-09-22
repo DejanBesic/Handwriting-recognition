@@ -1,9 +1,13 @@
 
-model.load_weights('low_loss.hdf5')
-scores = model.evaluate_generator(test_generator,842)
-print("Accuracy = ", scores[1])
+from sklearn.utils import shuffle
+from PIL import Image
+from keras.utils import to_categorical
+from random import *
+import numpy as np
 
-Load in test data.
+model.load_weights('check-08-0.3533.hdf5')
+scores = model.evaluate_generator(test_generator, 842)
+print("Accuracy = ", scores[1])
 
 images = []
 for filename in test_files[:50]:
@@ -37,8 +41,6 @@ for filename in test_files[:50]:
     X_test /= 255
     shuffle(X_test)
 
-
-### Predictions
 predictions = model.predict(X_test, verbose =1)
 
 predicted_writer = []

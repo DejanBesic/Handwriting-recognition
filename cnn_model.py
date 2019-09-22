@@ -9,8 +9,13 @@ from keras.callbacks import ModelCheckpoint
 def resize_image(image):
     import tensorflow as tf
     return tf.image.resize_images(image, [56, 56])
+    0   0  0  0  0
+    1 , 2, 3, 4  0
+    4 , 5, 6, 7
+    7 , 8, 9, 0
 
-
+    
+    
 def build_model():
     row, col, ch = 113, 113, 1
     model = Sequential()
@@ -47,7 +52,7 @@ def build_model():
     model.compile(loss='categorical_crossentropy', optimizer=Adam(), metrics=['accuracy'])
 
 
-def train_cnn(train_generator, nb_epoch=8, samples_per_epoch=3268, nb_val_samples=842):
+def train_cnn(train_generator, validation_generator, nb_epoch=8, samples_per_epoch=3268, nb_val_samples=842):
     filepath = "check-{epoch:02d}-{val_loss:.4f}.hdf5"
     checkpoint = ModelCheckpoint(filepath=filepath, verbose=1, save_best_only=False)
     callbacks_list = [checkpoint]
